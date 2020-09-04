@@ -11,7 +11,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from decouple import config
 
 options = webdriver.ChromeOptions()
-
 driver = webdriver.Chrome(config('CHROMEDRIVER_PATH'), options=options)
 driver.get('https://nofluffjobs.com/')
 
@@ -25,8 +24,7 @@ def fetchBackendJobs():
   job_offer_pages_count = int(job_offer_pages_count_element.text)
 
   done = False
-  current_job_offer = 1
-  current_list = 1
+  current_job_offer, current_list = (1, 1)
 
   while not done:
     try:
