@@ -10,9 +10,10 @@ driver = webdriver.Chrome(config("CHROMEDRIVER_PATH"), options=options)
 
 
 class JobOffer:
-    def __init__(self, title, company, salary_data):
+    def __init__(self, title, company, language, salary_data):
         self.title = title
         self.company = company
+        self.language = language
 
         self.salary_converter(salary_data)
 
@@ -36,6 +37,7 @@ class JobOffer:
         return [
             self.title,
             self.company,
+            self.language,
             self.min_salary,
             self.max_salary,
             self.currency,
@@ -70,6 +72,9 @@ def fetch_backend_jobs():
                         company=job_offer.find_element_by_xpath(
                             ".//nfj-posting-item-title/div[1]/span"
                         ).text[2:],
+                        language=job_offer.find_element_by_xpath(
+                            ".//div[2]/nfj-posting-item-tags/nfj-posting-item-tag/object/a"
+                        ).text,
                         salary_data=job_offer.find_element_by_xpath(
                             ".//div[2]/nfj-posting-item-tags/span"
                         ).text,
